@@ -1,4 +1,4 @@
-package com.java_lms_group_20.Controller;
+package com.java_lms_group_20.Controller.Admin;
 
 import com.java_lms_group_20.Model.TechnicalOfficer;
 import com.java_lms_group_20.Service.AdminService;

@@ -1,4 +1,4 @@
-package com.java_lms_group_20.Controller;
+package com.java_lms_group_20.Controller.Admin;
 
 import com.java_lms_group_20.Model.User;
 import javafx.application.Platform;
@@ -76,49 +76,49 @@ public class AdminDashboardController {
     @FXML
     public void showDashboard() {
         setActiveButton(btnShowDashboard);
-        switchView("/View/admin_dashboard_home.fxml");
+        switchView("/View/AdminView/admin_dashboard_home.fxml");
     }
 
     @FXML
     private void showUndergradRegister() {
         setActiveButton(btnRegisterUndergrad);
-        switchView("/View/undergraduate_registration.fxml");
+        switchView("/View/AdminView/undergraduate_registration.fxml");
     }
 
     @FXML
     public void showLecturerRegister() {
         setActiveButton(btnRegisterLecturer);
-        switchView("/View/lecturer_registration.fxml");
+        switchView("/View/AdminView/lecturer_registration.fxml");
     }
 
     @FXML
     public void showTORegister() {
         setActiveButton(btnRegisterTO);
-        switchView("/View/technical_officer_registration.fxml");
+        switchView("/View/AdminView/technical_officer_registration.fxml");
     }
 
     @FXML
     public void showCourseRegister() {
         setActiveButton(btnRegisterCourse);
-        switchView("/View/course_registration.fxml");
+        switchView("/View/AdminView/course_registration.fxml");
     }
 
     @FXML
     public void showMedicalManagement() {
         setActiveButton(btnManageMedical);
-        switchView("/View/admin_medical_view.fxml");
+        switchView("/View/AdminView/admin_medical_view.fxml");
     }
 
     @FXML
     public void showAttendanceManagement() {
         setActiveButton(btnManageAttendance);
-        switchView("/View/attendance_view.fxml");
+        switchView("/View/AdminView/attendance_view.fxml");
     }
 
     @FXML
     public void showMarksManagement() {
         setActiveButton(btnManageMarks);
-        switchView("/View/marks_view.fxml");
+        switchView("/View/AdminView/marks_view.fxml");
     }
 
     private void setActiveButton(Button activeBtn) {

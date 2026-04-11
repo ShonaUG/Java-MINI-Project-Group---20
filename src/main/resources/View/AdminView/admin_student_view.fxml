@@ -5,18 +5,18 @@
 
 <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 15;"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.java_lms_group_20.Controller.AdminLecturerViewController">
+      fx:controller="com.java_lms_group_20.Controller.Admin.AdminStudentViewController">
 
     <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
 
-    <Label text="Lecturer Registry" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+    <Label text="Undergraduate Student Registry" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
 
-    <TableView fx:id="lecturerTable" VBox.vgrow="ALWAYS">
+    <TableView fx:id="studentTable" VBox.vgrow="ALWAYS">
         <columns>
+            <TableColumn fx:id="colStuID" text="Student ID" prefWidth="120" />
             <TableColumn fx:id="colName" text="Full Name" prefWidth="200" />
-            <TableColumn fx:id="colEmail" text="Email Address" prefWidth="200" />
-            <TableColumn fx:id="colDepartment" text="Department" prefWidth="180" />
-            <TableColumn fx:id="colSpecialization" text="Specialization" prefWidth="180" />
+            <TableColumn fx:id="colDegree" text="Degree Program" prefWidth="150" />
+            <TableColumn fx:id="colGPA" text="GPA" prefWidth="80" />
         </columns>
     </TableView>
 </VBox>

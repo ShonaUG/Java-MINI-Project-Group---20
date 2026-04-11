@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.java_lms_group_20.Controller.Student.StudentDashboardController">
+    <left>
+        <VBox prefWidth="250.0" spacing="10" style="-fx-background-color: #1e293b;">
+            <padding><Insets top="30" right="15" bottom="30" left="15"/></padding>
+
+            <Label text="STUDENT PORTAL" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;"/>
+            <Region prefHeight="40"/>
+
+            <Button fx:id="btnHome" text="Dashboard" onAction="#showHome" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #94a3b8; -fx-padding: 12; -fx-cursor: hand;"/>
+
+            <Button fx:id="btnCourses"
+                    text="Courses"
+                    onAction="#showCourses"
+                    maxWidth="Infinity"
+                    alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #94a3b8; -fx-padding: 12; -fx-cursor: hand;"/>
+            <Button fx:id="btnAttendance" text="Attendance" onAction="#showAttendance" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #94a3b8; -fx-padding: 12; -fx-cursor: hand;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Sign Out" onAction="#handleSignOut" maxWidth="Infinity" style="-fx-background-color: #ef444422; -fx-text-fill: #ef4444; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20">
+            <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+            <HBox alignment="CENTER_LEFT">
+                <VBox>
+                    <Label fx:id="lblWelcome" text="Welcome, Student" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblStudentID" text="Loading ID..." style="-fx-text-fill: #64748b;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Circle radius="20" fill="#cbd5e1"/>
+            </HBox>
+
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);"/>
+        </VBox>
+    </center>
+</BorderPane>

@@ -6,6 +6,19 @@ import java.sql.*;
 
 public class UndergraduateRepository {
 
+    public String getStudentIDByUserID(int userID) {
+        String sql = "SELECT studentID FROM undergraduate WHERE userID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userID);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getString("studentID");
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
+
+
+
     public boolean save(Undergraduate student) throws SQLException {
         String userSql = "INSERT INTO user (username, password, firstName, lastName, email) VALUES (?, ?, ?, ?, ?)";
         String roleSql = "INSERT INTO user_roles (userID, roleID) VALUES (?, 3)";

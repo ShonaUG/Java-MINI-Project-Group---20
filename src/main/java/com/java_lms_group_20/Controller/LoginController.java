@@ -1,5 +1,8 @@
 package com.java_lms_group_20.Controller;
 
+import com.java_lms_group_20.Controller.Admin.AdminDashboardController;
+import com.java_lms_group_20.Controller.Student.StudentDashboardController; // Added Import
+import com.java_lms_group_20.Controller.RoleSelectionController; // Added Import
 import com.java_lms_group_20.Model.Role;
 import com.java_lms_group_20.Model.User;
 import com.java_lms_group_20.Service.LoginService;
@@ -33,12 +36,13 @@ public class LoginController {
         try {
             User user = loginService.authenticate(username, password);
 
+            // Navigate based on roles
             if (user.getRoles().size() > 1) {
                 navigateTo("/View/role_selection.fxml", "Choose Your Role", user);
             } else if (user.getRoles().contains(Role.ADMIN)) {
-                navigateTo("/View/admin_dashboard.fxml", "Admin Dashboard", user);
+                navigateTo("/View/AdminView/admin_dashboard.fxml", "Admin Dashboard", user);
             } else if (user.getRoles().contains(Role.UNDERGRADUATE)) {
-                navigateTo("/View/student_dashboard.fxml", "Student Portal", user);
+                navigateTo("/View/Student/student_dashboard.fxml", "Student Portal", user);
             } else {
                 messageLabel.setText("Access Denied: No valid role assigned.");
             }
@@ -54,29 +58,29 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
+            // Get the current controller instance from the loader
+            Object controller = loader.getController();
+
+            // Pass user data BEFORE showing the stage to prevent flickering/null issues
+            if (controller instanceof AdminDashboardController) {
+                ((AdminDashboardController) controller).initUser(user);
+            } else if (controller instanceof StudentDashboardController) {
+                ((StudentDashboardController) controller).initUser(user);
+            } else if (controller instanceof RoleSelectionController) {
+                ((RoleSelectionController) controller).initUser(user);
+            }
+
+            // Set up and show the stage
             Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.setTitle(title);
             stage.centerOnScreen();
-
-            // CRITICAL: Show the stage FIRST so the FXML fields are injected
             stage.show();
-
-            // Now safely pass the user to the specific controller
-            if (fxmlPath.contains("admin_dashboard")) {
-                AdminDashboardController controller = loader.getController();
-                controller.initUser(user);
-            } else if (fxmlPath.contains("student_dashboard")) {
-                StudentDashboardController controller = loader.getController();
-                controller.initUser(user);
-            } else if (fxmlPath.contains("role_selection")) {
-                RoleSelectionController controller = loader.getController();
-                controller.initUser(user);
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
-            messageLabel.setText("Navigation Error!");
+            messageLabel.setText("Navigation Error: Check FXML Paths");
         }
     }
 }

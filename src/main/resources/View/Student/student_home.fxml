@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="25" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Overview" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+
+    <HBox spacing="20">
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: #6366f1; -fx-padding: 20; -fx-background-radius: 12;">
+            <Label text="Current GPA" style="-fx-text-fill: #e0e7ff; -fx-font-size: 14px;"/>
+            <Label text="3.85" style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: #0ea5e9; -fx-padding: 20; -fx-background-radius: 12;">
+            <Label text="Attendance" style="-fx-text-fill: #e0f2fe; -fx-font-size: 14px;"/>
+            <Label text="82%" style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: #10b981; -fx-padding: 20; -fx-background-radius: 12;">
+            <Label text="Courses" style="-fx-text-fill: #d1fae5; -fx-font-size: 14px;"/>
+            <Label text="06" style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <VBox spacing="15" VBox.vgrow="ALWAYS" style="-fx-background-color: #f1f5f9; -fx-padding: 20; -fx-background-radius: 12;">
+        <Label text="Recent Notifications" style="-fx-font-weight: bold; -fx-text-fill: #475569;"/>
+        <Separator/>
+        <Label text="• Mid-exam marks for ICT1234 are now available." style="-fx-text-fill: #64748b;"/>
+        <Label text="• Medical request for 2026-04-01 has been Approved." style="-fx-text-fill: #64748b;"/>
+        <Label text="• Reminder: Assignment 02 deadline is tomorrow." style="-fx-text-fill: #64748b;"/>
+    </VBox>
+</VBox>

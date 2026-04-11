@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 15;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.java_lms_group_20.Controller.Admin.AdminLecturerViewController">
+
+    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+    <Label text="Lecturer Registry" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+
+    <TableView fx:id="lecturerTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colName" text="Full Name" prefWidth="200" />
+            <TableColumn fx:id="colEmail" text="Email Address" prefWidth="200" />
+            <TableColumn fx:id="colDepartment" text="Department" prefWidth="180" />
+            <TableColumn fx:id="colSpecialization" text="Specialization" prefWidth="180" />
+        </columns>
+    </TableView>
+</VBox>

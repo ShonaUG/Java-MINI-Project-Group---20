@@ -74,6 +74,11 @@ CREATE TABLE course (
                         credits INT NOT NULL
 );
 
+INSERT INTO course (courseCode, courseName, credits)
+VALUES
+    ('ICT1234', 'Data Structures', 3),
+    ('ICT1122', 'Calculus', 3),
+    ('ICT1133', 'Communication Skills', 2);
 
 CREATE TABLE IF NOT EXISTS medical (
                                        medicalID INT AUTO_INCREMENT PRIMARY KEY,
@@ -93,22 +98,33 @@ VALUES
     ('TG/2023/1100', 'Food Poisoning', '2026-04-10', '2026-04-12', 'Rejected'),
     ('TG/2023/1550', 'Eye Infection', '2026-04-05', '2026-04-08', 'Pending');
 
+
+
 CREATE TABLE attendance (
                             attendanceID INT AUTO_INCREMENT PRIMARY KEY,
                             undergraduateId VARCHAR(50) NOT NULL,
                             courseCode VARCHAR(20) NOT NULL,
+                            sessionType VARCHAR(20) NOT NULL, -- Added: Theory or Practical
                             sessionDate DATE NOT NULL,
                             status VARCHAR(20) NOT NULL,
                             markedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO attendance (undergraduateId, courseCode, sessionDate, status)
+INSERT INTO attendance (undergraduateId, courseCode, sessionType, sessionDate, status)
 VALUES
-    ('TG/2023/1753', 'ICT1234', '2026-04-01', 'Present'),
-    ('TG/2023/1753', 'ICT1122', '2026-04-02', 'Absent'),
-    ('TG/2023/1820', 'ICT1234', '2026-04-01', 'Present'),
-    ('TG/2023/1100', 'ICT1234', '2026-04-01', 'Late');
+    -- Student TG/2023/1753 Records
+    ('TG/2023/1753', 'ICT1234', 'Theory', '2026-04-01', 'Present'),
+    ('TG/2023/1753', 'ICT1234', 'Practical', '2026-04-03', 'Present'),
+    ('TG/2023/1753', 'ICT1122', 'Theory', '2026-04-02', 'Absent'),
+    ('TG/2023/1753', 'ICT1122', 'Practical', '2026-04-04', 'Present'),
+    ('TG/2023/1753', 'ICT1133', 'Theory', '2026-04-05', 'Present'),
+    ('TG/2023/1753', 'ICT1133', 'Practical', '2026-04-07', 'Absent'),
 
+    -- Other Student Records for testing
+    ('TG/2023/1820', 'ICT1234', 'Theory', '2026-04-01', 'Present'),
+    ('TG/2023/1820', 'ICT1234', 'Practical', '2026-04-03', 'Late'),
+    ('TG/2023/1100', 'ICT1234', 'Theory', '2026-04-01', 'Late'),
+    ('TG/2023/1100', 'ICT1122', 'Theory', '2026-04-02', 'Present');
 CREATE TABLE IF NOT EXISTS marks (
                                      markID INT AUTO_INCREMENT PRIMARY KEY,
                                      undergraduateId VARCHAR(50) NOT NULL,

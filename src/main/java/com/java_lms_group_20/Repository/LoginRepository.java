@@ -9,17 +9,20 @@ import java.util.Optional;
 
 public class LoginRepository {
 
-    public Optional<User> findByUsername(String username) {
-        String query = "SELECT u.*, r.roleName " +
+    public Optional<User> findByUsername(String identifier) {
+
+        String query = "SELECT u.*, r.roleName, ug.studentID " +
                 "FROM user u " +
                 "LEFT JOIN user_roles ur ON u.userID = ur.userID " +
                 "LEFT JOIN role r ON ur.roleID = r.roleID " +
-                "WHERE u.username = ?";
+                "LEFT JOIN undergraduate ug ON u.userID = ug.userID " +
+                "WHERE u.username = ? OR ug.studentID = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, username);
+            pstmt.setString(1, identifier);
+            pstmt.setString(2, identifier); // Check against TG number too
             ResultSet rs = pstmt.executeQuery();
 
             User user = null;
@@ -34,7 +37,6 @@ public class LoginRepository {
                     user.setEmail(rs.getString("email"));
                 }
 
-                // Add the role found in this row to the User's Role Set
                 String roleName = rs.getString("roleName");
                 if (roleName != null) {
                     user.addRole(Role.valueOf(roleName));

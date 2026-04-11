@@ -5,7 +5,7 @@
 
 <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 15;"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.java_lms_group_20.Controller.MarksController">
+      fx:controller="com.java_lms_group_20.Controller.Admin.MarksController">
     <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
     <Label text="Student Marks Management" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
     <HBox spacing="10">
