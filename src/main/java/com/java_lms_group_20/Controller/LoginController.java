@@ -1,8 +1,8 @@
 package com.java_lms_group_20.Controller;
 
 import com.java_lms_group_20.Controller.Admin.AdminDashboardController;
-import com.java_lms_group_20.Controller.Student.StudentDashboardController; // Added Import
-import com.java_lms_group_20.Controller.RoleSelectionController; // Added Import
+import com.java_lms_group_20.Controller.Student.StudentDashboardController;
+import com.java_lms_group_20.Controller.Lecturer.LecturerDashboardController; // Added Import
 import com.java_lms_group_20.Model.Role;
 import com.java_lms_group_20.Model.User;
 import com.java_lms_group_20.Service.LoginService;
@@ -43,12 +43,14 @@ public class LoginController {
                 navigateTo("/View/AdminView/admin_dashboard.fxml", "Admin Dashboard", user);
             } else if (user.getRoles().contains(Role.UNDERGRADUATE)) {
                 navigateTo("/View/Student/student_dashboard.fxml", "Student Portal", user);
+            } else if (user.getRoles().contains(Role.LECTURER)) { // Role already handled here
+                navigateTo("/View/Lecturer/lecturer_dashboard.fxml", "Lecturer Portal", user);
             } else {
                 messageLabel.setText("Access Denied: No valid role assigned.");
             }
 
         } catch (Exception e) {
-            messageLabel.setText(e.getMessage());
+            messageLabel.setText(e.getMessage() );
             messageLabel.setStyle("-fx-text-fill: #e11d48;");
         }
     }
@@ -58,19 +60,19 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
-            // Get the current controller instance from the loader
             Object controller = loader.getController();
 
-            // Pass user data BEFORE showing the stage to prevent flickering/null issues
+            // Pass user data to the relevant controller
             if (controller instanceof AdminDashboardController) {
                 ((AdminDashboardController) controller).initUser(user);
             } else if (controller instanceof StudentDashboardController) {
                 ((StudentDashboardController) controller).initUser(user);
+            } else if (controller instanceof LecturerDashboardController) { // FIXED: Pass to Lecturer
+                ((LecturerDashboardController) controller).initUser(user);
             } else if (controller instanceof RoleSelectionController) {
                 ((RoleSelectionController) controller).initUser(user);
             }
 
-            // Set up and show the stage
             Stage stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -81,6 +83,31 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
             messageLabel.setText("Navigation Error: Check FXML Paths");
+        }
+    }
+
+    // Inside LoginController class
+    public static void logout(javafx.scene.Node node) {
+        try {
+            // Load the login view - ensure this path is correct for your resources
+            java.net.URL fxmlLocation = LoginController.class.getResource("/View/login_page.fxml");
+
+            if (fxmlLocation == null) {
+                System.err.println("Logout Error: Could not find /View/login.fxml");
+                return;
+            }
+
+            Parent root = FXMLLoader.load(fxmlLocation);
+            Stage stage = (Stage) node.getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("LMS - Login");
+            stage.centerOnScreen();
+            stage.show();
+
+            System.out.println("Session ended. Redirecting to login...");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

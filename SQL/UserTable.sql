@@ -39,12 +39,21 @@ CREATE TABLE lecturer (
                           lecturerID VARCHAR(20) UNIQUE NOT NULL,
                           department VARCHAR(100),
                           qualifications VARCHAR(255),
-                          specialization VARCHAR(100),
-
-                          FOREIGN KEY (userID) REFERENCES user(userID) ON DELETE CASCADE
+                          specialization VARCHAR(100)
 );
+INSERT INTO user (username, password, firstName, lastName, email, contactNo)
+VALUES
+    ('kamal_lec', 'pass123', 'Kamal', 'Perera', 'kamal@uov.ac.lk', '0712345678'),
+    ('nimali_lec', 'pass123', 'Nimali', 'Silva', 'nimali@uov.ac.lk', '0723456789'),
+    ('sunil_lec', 'pass123', 'Sunil', 'Fernando', 'sunil@uov.ac.lk', '0774567890'),
+    ('priyanthi_lec', 'pass123', 'Priyanthi', 'Gunawardena', 'priyanthi@uov.ac.lk', '0755678901');
 
-
+INSERT INTO lecturer (userID, lecturerID, department, qualifications, specialization)
+VALUES
+    (1, 'LC1023', 'Information Technology', 'PhD in Computer Science', 'Artificial Intelligence'),
+    (2, 'LC1024', 'Information Technology', 'MSc in Software Engineering', 'Cloud Computing'),
+    (3, 'LC1025', 'Mathematics', 'PhD in Applied Statistics', 'Data Science'),
+    (4, 'LC1026', 'Business Studies', 'MBA, PhD in Management', 'Organizational Leadership');
 
 
 CREATE TABLE technical_officer (
@@ -142,3 +151,8 @@ VALUES
     ('TG/2023/1753', 'ICT1122', 10.0, 15.0, 30.0, 55.0, 'C'),
     ('TG/2023/1820', 'ICT1234', 18.0, 22.0, 50.0, 90.0, 'A+'),
     ('TG/2023/1100', 'ICT1234', 12.0, 10.0, 20.0, 42.0, 'D');
+
+INSERT INTO user_roles (userID, roleID) VALUES (105, 2); -- Kamal
+INSERT INTO user_roles (userID, roleID) VALUES (106, 2); -- Nimali
+INSERT INTO user_roles (userID, roleID) VALUES (107, 2); -- Sunil
+INSERT INTO user_roles (userID, roleID) VALUES (108, 2); -- Priyanthi

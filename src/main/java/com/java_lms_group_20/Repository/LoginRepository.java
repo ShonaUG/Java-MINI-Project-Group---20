@@ -10,19 +10,22 @@ import java.util.Optional;
 public class LoginRepository {
 
     public Optional<User> findByUsername(String identifier) {
-
-        String query = "SELECT u.*, r.roleName, ug.studentID " +
+        // Added JOIN for lecturer table (l) and selected l.lecturerID
+        String query = "SELECT u.*, r.roleName, ug.studentID, l.lecturerID " +
                 "FROM user u " +
                 "LEFT JOIN user_roles ur ON u.userID = ur.userID " +
                 "LEFT JOIN role r ON ur.roleID = r.roleID " +
                 "LEFT JOIN undergraduate ug ON u.userID = ug.userID " +
-                "WHERE u.username = ? OR ug.studentID = ?";
+                "LEFT JOIN lecturer l ON u.userID = l.userID " + // Added this JOIN
+                "WHERE u.username = ? OR ug.studentID = ? OR l.lecturerID = ?"; // Added 3rd check
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, identifier);
-            pstmt.setString(2, identifier); // Check against TG number too
+            pstmt.setString(2, identifier);
+            pstmt.setString(3, identifier); // Check against Lecturer ID (LC1023)
+
             ResultSet rs = pstmt.executeQuery();
 
             User user = null;
@@ -39,7 +42,11 @@ public class LoginRepository {
 
                 String roleName = rs.getString("roleName");
                 if (roleName != null) {
-                    user.addRole(Role.valueOf(roleName));
+                    try {
+                        user.addRole(Role.valueOf(roleName.toUpperCase()));
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Invalid role name in DB: " + roleName);
+                    }
                 }
             }
             return Optional.ofNullable(user);

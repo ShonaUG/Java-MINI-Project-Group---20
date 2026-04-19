@@ -7,10 +7,12 @@ module com.example.java_lms_group_20 {
     requires java.sql;
 
     // 1. Open all controller packages to FXML so JavaFX can inject @FXML fields
+    opens com.java_lms_group_20.Controller.Lecturer to javafx.fxml;
     opens com.java_lms_group_20.Controller to javafx.fxml;
     opens com.java_lms_group_20.Controller.Student to javafx.fxml;
     opens com.java_lms_group_20.Controller.Admin to javafx.fxml;
     opens com.java_lms_group_20 to javafx.fxml;
+    opens View.Lecturer to javafx.fxml;
 
     // 2. VERY IMPORTANT: Open Model to javafx.base
     // This allows TableView to access your getters (e.g., getCourseCode)
