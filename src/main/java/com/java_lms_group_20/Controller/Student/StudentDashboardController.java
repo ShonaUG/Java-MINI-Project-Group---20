@@ -1,5 +1,6 @@
 package com.java_lms_group_20.Controller.Student;
 
+import com.java_lms_group_20.Controller.LoginController;
 import com.java_lms_group_20.Model.User;
 import com.java_lms_group_20.Repository.UndergraduateRepository;
 import javafx.application.Platform;
@@ -113,12 +114,7 @@ public class StudentDashboardController {
 
     @FXML
     public void handleSignOut() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/login.fxml"));
-            lblWelcome.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        LoginController.logout(lblWelcome);
     }
 
     private void setActiveButton(Button activeBtn) {

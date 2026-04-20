@@ -93,7 +93,7 @@ public class LoginController {
             java.net.URL fxmlLocation = LoginController.class.getResource("/View/login_page.fxml");
 
             if (fxmlLocation == null) {
-                System.err.println("Logout Error: Could not find /View/login.fxml");
+                System.err.println("Logout Error: Could not find /View/login_page.fxml");
                 return;
             }
 

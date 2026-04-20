@@ -50,7 +50,7 @@
 
             <Region VBox.vgrow="ALWAYS"/>
 
-            <Button maxWidth="Infinity" text="Sign Out"
+            <Button maxWidth="Infinity" text="Sign Out" onAction="#handleSignOut"
                     style="-fx-background-color: #ef444422; -fx-text-fill: #ef4444; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;"/>
         </VBox>
     </left>

@@ -1,62 +1,62 @@
-package com.example.model;
+package com.java_lms_group_20.Model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 
 public class Medical {
-
-    private int medicalId;
-    private String studentId;
-    private Date date;
-    private String reason;
-    private String status; // Approved / Pending / Rejected
+    private int medicalID;
+    private String undergraduateId;
+    private String description;
+    private LocalDate validFrom; // Keep this internal for better date math
+    private LocalDate validTo;
+    private String status;
 
     public Medical() {}
 
-    public Medical(int medicalId, String studentId, Date date, String reason, String status) {
-        this.medicalId = medicalId;
-        this.studentId = studentId;
-        this.date = date;
-        this.reason = reason;
-        this.status = status;
+    // --- Standard Getters & Setters ---
+
+    public int getMedicalID() { return medicalID; }
+    public void setMedicalID(int medicalID) { this.medicalID = medicalID; }
+
+    public String getUndergraduateId() { return undergraduateId; }
+    public void setUndergraduateId(String undergraduateId) { this.undergraduateId = undergraduateId; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    // --- SQL DATE COMPATIBLE GETTERS ---
+
+    /**
+     * This allows your Repository and Controller to see java.sql.Date
+     */
+    public Date getValidFrom() {
+        return (validFrom != null) ? Date.valueOf(validFrom) : null;
     }
 
-    public int getMedicalId() {
-        return medicalId;
+    public Date getValidTo() {
+        return (validTo != null) ? Date.valueOf(validTo) : null;
     }
 
-    public void setMedicalId(int medicalId) {
-        this.medicalId = medicalId;
+    // --- SQL DATE COMPATIBLE SETTERS ---
+
+    public void setValidFrom(Date sqlDate) {
+        if (sqlDate != null) {
+            this.validFrom = sqlDate.toLocalDate();
+        }
     }
 
-    public String getStudentId() {
-        return studentId;
+    public void setValidTo(Date sqlDate) {
+        if (sqlDate != null) {
+            this.validTo = sqlDate.toLocalDate();
+        }
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
+    // --- INTERNAL LOCALDATE METHODS (Optional) ---
+    // Useful if you need to do logic check like: if(medical.getValidFromDate().isBefore(now))
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public LocalDate getValidFromDate() { return validFrom; }
+    public void setValidFromDate(LocalDate ld) { this.validFrom = ld; }
 }

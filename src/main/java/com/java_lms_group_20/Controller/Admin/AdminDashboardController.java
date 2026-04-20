@@ -1,11 +1,14 @@
 package com.java_lms_group_20.Controller.Admin;
 
+import com.java_lms_group_20.Controller.LoginController;
 import com.java_lms_group_20.Model.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
@@ -119,6 +122,18 @@ public class AdminDashboardController {
     public void showMarksManagement() {
         setActiveButton(btnManageMarks);
         switchView("/View/AdminView/marks_view.fxml");
+    }
+
+    @FXML
+    public void handleSignOut() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Sign Out");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to sign out?");
+
+        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            LoginController.logout(welcomeLabel);
+        }
     }
 
     private void setActiveButton(Button activeBtn) {
