@@ -139,7 +139,7 @@ public class UndergraduateRepository {
     }
 
     public Optional<Undergraduate> findByUserID(int userID) throws SQLException {
-        String sql = "SELECT u.userID, u.firstName, u.lastName, u.contactNo, u.profilePicture, " +
+        String sql = "SELECT u.userID, u.firstName, u.lastName, u.contactNo, " +
                 "ug.studentID, ug.degreeProgram, ug.level, ug.gpa " +
                 "FROM user u JOIN undergraduate ug ON u.userID = ug.userID WHERE u.userID = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -152,7 +152,6 @@ public class UndergraduateRepository {
                 student.setFirstName(rs.getString("firstName"));
                 student.setLastName(rs.getString("lastName"));
                 student.setContactNo(rs.getString("contactNo"));
-                student.setProfilePicture(rs.getString("profilePicture"));
                 student.setStudentID(rs.getString("studentID"));
                 student.setDegreeProgram(rs.getString("degreeProgram"));
                 student.setLevel(rs.getInt("level"));
@@ -163,13 +162,12 @@ public class UndergraduateRepository {
         }
     }
 
-    public boolean updateOwnProfile(int userID, String contactNo, String profilePicture) throws SQLException {
-        String sql = "UPDATE user SET contactNo=?, profilePicture=? WHERE userID=?";
+    public boolean updateOwnProfile(int userID, String contactNo) throws SQLException {
+        String sql = "UPDATE user SET contactNo=? WHERE userID=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, contactNo);
-            stmt.setString(2, profilePicture);
-            stmt.setInt(3, userID);
+            stmt.setInt(2, userID);
             return stmt.executeUpdate() > 0;
         }
     }

@@ -24,7 +24,7 @@ public class UndergraduateService {
         return repository.findByUserID(userID);
     }
 
-    public boolean updateOwnProfile(int userID, String contactNo, String profilePicture) throws SQLException {
-        return repository.updateOwnProfile(userID, contactNo, profilePicture);
+    public boolean updateOwnProfile(int userID, String contactNo) throws SQLException {
+        return repository.updateOwnProfile(userID, contactNo);
     }
 }

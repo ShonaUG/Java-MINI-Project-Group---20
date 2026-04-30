@@ -19,22 +19,32 @@ public class AttendanceService {
     public List<AttendanceSummary> getStudentAttendanceSummary(String studentId) throws SQLException {
         List<Attendance> rawData = repository.findByStudentId(studentId);
 
-        // Grouping by Course Code in Java
-        Map<String, List<Attendance>> grouped = rawData.stream()
-                .collect(Collectors.groupingBy(Attendance::getCourseCode));
+        Map<String, List<Attendance>> grouped = new HashMap<>();
+
+        // Group by courseCode
+        for (Attendance a : rawData) {
+            String code = a.getCourseCode();
+            grouped.computeIfAbsent(code, k -> new ArrayList<>()).add(a);
+        }
 
         List<AttendanceSummary> summaries = new ArrayList<>();
-        for (Map.Entry<String, List<Attendance>> entry : grouped.entrySet()) {
-            String code = entry.getKey();
-            List<Attendance> sessions = entry.getValue();
+
+        // Calculate totals
+        for (String code : grouped.keySet()) {
+            List<Attendance> sessions = grouped.get(code);
 
             int total = sessions.size();
-            int present = (int) sessions.stream()
-                    .filter(a -> "Present".equalsIgnoreCase(a.getStatus()))
-                    .count();
+            int present = 0;
+
+            for (Attendance a : sessions) {
+                if ("Present".equalsIgnoreCase(a.getStatus())) {
+                    present++;
+                }
+            }
 
             summaries.add(new AttendanceSummary(code, total, present));
         }
+
         return summaries;
     }
 

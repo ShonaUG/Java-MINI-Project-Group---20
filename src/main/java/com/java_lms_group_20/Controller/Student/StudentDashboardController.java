@@ -20,7 +20,7 @@ public class StudentDashboardController {
 
     @FXML private Label lblWelcome, lblStudentID;
     @FXML private StackPane contentArea;
-    @FXML private Button btnProfile, btnHome, btnCourses, btnAttendance, btnNotices, btnTimetable;
+    @FXML private Button btnProfile, btnHome, btnCourses, btnAttendance, btnMedical, btnNotices, btnTimetable;
 
     private List<Button> sidebarButtons;
     private User currentUser;
@@ -32,7 +32,7 @@ public class StudentDashboardController {
 
     @FXML
     public void initialize() {
-        sidebarButtons = Arrays.asList(btnProfile, btnHome, btnCourses, btnAttendance, btnNotices, btnTimetable)
+        sidebarButtons = Arrays.asList(btnProfile, btnHome, btnCourses, btnAttendance, btnMedical, btnNotices, btnTimetable)
                 .stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
@@ -54,7 +54,7 @@ public class StudentDashboardController {
             lblStudentID.setText(studentID != null ? studentID : "ID Not Found");
         });
 
-        showProfile();
+        showHome();
     }
 
     @FXML
@@ -74,8 +74,20 @@ public class StudentDashboardController {
 
     @FXML
     public void showHome() {
+        if (currentUser == null) return;
+
         setActiveButton(btnHome);
-        switchView("/View/Student/student_home.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Student/student_home.fxml"));
+            Parent view = loader.load();
+            StudentHomeController controller = loader.getController();
+            String studentID = undergradRepo.getStudentIDByUserID(currentUser.getUserID());
+            controller.initUser(currentUser, studentID);
+            contentArea.getChildren().setAll(view);
+        } catch (IOException e) {
+            System.err.println("Error loading home view: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -123,6 +135,26 @@ public class StudentDashboardController {
 
             contentArea.getChildren().setAll(view);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void showMedical() {
+        if (currentUser == null) return;
+
+        setActiveButton(btnMedical);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Student/student_medical_view.fxml"));
+            Parent view = loader.load();
+
+            StudentMedicalController controller = loader.getController();
+            String studentID = undergradRepo.getStudentIDByUserID(currentUser.getUserID());
+            controller.initStudent(studentID);
+
+            contentArea.getChildren().setAll(view);
+        } catch (IOException e) {
+            System.err.println("Error loading medical view: " + e.getMessage());
             e.printStackTrace();
         }
     }

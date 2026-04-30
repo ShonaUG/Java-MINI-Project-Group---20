@@ -12,7 +12,6 @@
     <Label text="Name:"/>
     <Label fx:id="lblName" style="-fx-font-weight: bold;"/>
     <TextField fx:id="txtContact" promptText="Contact Number"/>
-    <TextField fx:id="txtProfilePicture" promptText="Profile Picture Path / URL"/>
     <HBox spacing="10">
         <Button text="Save" onAction="#handleSave" style="-fx-background-color: #10b981; -fx-text-fill: white;"/>
         <Label fx:id="lblStatus"/>

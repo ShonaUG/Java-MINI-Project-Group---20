@@ -10,7 +10,6 @@ public class StudentProfileController {
     @FXML private Label lblStudentId;
     @FXML private Label lblName;
     @FXML private TextField txtContact;
-    @FXML private TextField txtProfilePicture;
     @FXML private Label lblStatus;
 
     private final UndergraduateService service = new UndergraduateService();
@@ -25,7 +24,6 @@ public class StudentProfileController {
                 lblStudentId.setText(student.getStudentID());
                 lblName.setText(student.getFirstName() + " " + student.getLastName());
                 txtContact.setText(student.getContactNo());
-                txtProfilePicture.setText(student.getProfilePicture());
             }
         } catch (Exception e) {
             lblStatus.setText("Failed to load profile.");
@@ -35,7 +33,7 @@ public class StudentProfileController {
     @FXML
     private void handleSave() {
         try {
-            service.updateOwnProfile(userId, txtContact.getText().trim(), txtProfilePicture.getText().trim());
+            service.updateOwnProfile(userId, txtContact.getText().trim());
             lblStatus.setText("Profile updated.");
             lblStatus.setStyle("-fx-text-fill: #10b981;");
         } catch (Exception e) {

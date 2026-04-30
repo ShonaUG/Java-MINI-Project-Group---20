@@ -10,7 +10,7 @@ import java.util.Optional;
 public class LoginRepository {
 
     public Optional<User> findByUsername(String identifier) {
-        // Added JOIN for lecturer table (l) and selected l.lecturerID
+
         String query = "SELECT u.*, r.roleName, ug.studentID, l.lecturerID, t.techOfficerID " +
                 "FROM user u " +
                 "LEFT JOIN user_roles ur ON u.userID = ur.userID " +
